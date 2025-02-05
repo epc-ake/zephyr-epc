@@ -530,14 +530,13 @@ class DeviceHandler(Handler):
 
                 board_id = hardware.probe_id or hardware.id
                 product = hardware.product
-                serial_port = hardware.serial
                 if board_id is not None:
                     if runner in ("pyocd", "nrfjprog", "nrfutil"):
                         command_extra_args.append("--dev-id")
                         command_extra_args.append(board_id)
                     elif runner == "esp32":
                         command_extra_args.append("--esp-device")
-                        command_extra_args.append(serial_port)
+                        command_extra_args.append(board_id)
                     elif runner == "openocd" and product == "STM32 STLink":
                         command_extra_args.append("--cmd-pre-init")
                         command_extra_args.append("hla_serial %s" % board_id)
